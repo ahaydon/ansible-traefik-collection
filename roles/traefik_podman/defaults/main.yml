@@ -1,0 +1,5 @@
+---
+traefik_podman_name: traefik
+traefik_podman_user: traefik
+traefik_podman_group: "{{ traefik_podman_user }}"
+traefik_podman_version: latest

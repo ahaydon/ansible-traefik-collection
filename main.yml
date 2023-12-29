@@ -1,0 +1,15 @@
+---
+- name: Deploy traefik
+  hosts: all
+
+  vars:
+    traefik_user: traefik
+
+  roles:
+    - role: ahaydon.podman.podman_user
+      podman_user_name: "{{ traefik_user }}"
+      become: yes
+
+    - role: traefik_podman
+      traefik_podman_user: "{{ traefik_user }}"
+      traefik_podman_home: "{{ podman_user_home }}"

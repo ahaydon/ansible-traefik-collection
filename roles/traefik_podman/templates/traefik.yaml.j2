@@ -1,0 +1,30 @@
+api:
+  dashboard: true
+  insecure: true
+
+entrypoints:
+  web:
+    address: :80
+  websecure:
+    address: :443
+
+providers:
+  file:
+    directory: /etc/traefik/conf.d
+    watch: true
+
+http:
+  routers:
+    traefik:
+      rule: ((PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+      service: api@internal
+
+certificateResolvers:
+  letsencrypt:
+    acme:
+      email: "{{ traefik_podman_email }}"
+      storage: /var/local/traefik/acme.json
+      httpChallenge:
+        entrypoint: web
+      tlsChallenge: {}
+

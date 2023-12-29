@@ -1,0 +1,5 @@
+---
+collections:
+  - name: https://github.com/ahaydon/ansible-podman-collection.git
+    type: git
+    version: master

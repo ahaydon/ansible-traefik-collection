@@ -1,0 +1,46 @@
+---
+- name: Create traefik data directory
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ traefik_podman_user }}"
+    group: "{{ traefik_podman_group }}"
+    mode: "0770"
+  become: yes
+  loop:
+    - "{{ traefik_podman_home }}/config/conf.d"
+    - "{{ traefik_podman_home }}/acme"
+
+- name: Create traefik config
+  ansible.builtin.template:
+    src: traefik.yaml.j2
+    dest: "{{ traefik_podman_home }}/config/traefik.yaml"
+    owner: "{{ traefik_podman_user }}"
+    group: "{{ traefik_podman_group }}"
+    mode: "0660"
+
+- name: Create traefik container
+  ansible.builtin.include_role:
+    name: ahaydon.podman.podman_systemd
+  vars:
+    podman_systemd_name: "{{ traefik_podman_name }}"
+    podman_systemd_user: "{{ traefik_podman_user }}"
+    podman_systemd_image: docker.io/library/traefik:{{ traefik_podman_version }}
+    podman_systemd_readonly: true
+    podman_systemd_volumes:
+      - "{{ traefik_podman_home }}/config:/etc/traefik"
+      - "{{ traefik_podman_home }}/acme:/var/local/traefik"
+    podman_systemd_ports:
+      - 8080:8080
+      - 8000:80
+      - 8443:443
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+
+- name: Enable traefik service
+  ansible.builtin.systemd:
+    name: container-{{ traefik_podman_name }}.service
+    enabled: yes
+    state: started
+  become: yes

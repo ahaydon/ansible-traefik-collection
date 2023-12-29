@@ -1,0 +1,17 @@
+galaxy_info:
+  author: Adam Haydon
+  description: Deployes Traefik in a Podman container managed by systemd.
+  license: MIT
+
+  min_ansible_version: "2.1"
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - jammy
+
+  galaxy_tags:
+    - traefik
+    - podman
+    - systemd
+    - container
