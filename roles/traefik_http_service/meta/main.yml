@@ -1,0 +1,11 @@
+galaxy_info:
+  author: Adam Haydon
+  description: Generates a Traefik configuration for an upstream service.
+  license: MIT
+
+  min_ansible_version: "2.1"
+
+  platforms: all
+
+  galaxy_tags:
+    - traefik

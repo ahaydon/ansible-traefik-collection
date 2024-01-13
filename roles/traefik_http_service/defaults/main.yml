@@ -1,0 +1,4 @@
+---
+traefik_http_service_config_dir: /home/traefik/config/conf.d
+traefik_http_service_owner: traefik
+traefik_http_service_group: "{{ traefik_http_service_owner }}"

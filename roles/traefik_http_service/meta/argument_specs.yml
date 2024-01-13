@@ -1,0 +1,43 @@
+---
+  argument_specs:
+    main:
+      short_description: Main entrypoint for the traefik_http_service role
+      description:
+        - This is the main entrypoint for the C(traefik_http_service) role.
+      author: Adam Haydon
+      options:
+        traefik_http_service_name:
+          type: str
+          required: true
+          description:
+            - Name of the service in the Traefik config.
+
+        traefik_http_service_fqdn:
+          type: str
+          required: true
+          description:
+            - Fully qualified domain name for the service.
+
+        traefik_http_service_url:
+          type: str
+          required: true
+          description:
+            - Upstream server URL for the service.
+
+        traefik_http_service_config_dir:
+          type: path
+          default: /home/traefik/config/conf.d
+          description:
+            - Path to store the generated config file.
+
+        traefik_http_service_owner:
+          type: str
+          default: traefik
+          description:
+            - Name of the user to set as owner on the config file.
+
+        traefik_http_service_group:
+          type: str
+          default: "{{ traefik_http_service_owner }}"
+          description:
+            - Name of the group that owns that config file.
