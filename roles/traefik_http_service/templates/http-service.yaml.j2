@@ -1,0 +1,16 @@
+http:
+  routers:
+    {{ traefik_http_service_name }}:
+      entryPoints:
+        - websecure
+        - web
+      rule: "Host(`{{ traefik_http_service_fqdn }}`)"
+      service: {{ traefik_http_service_name }}-service
+      tls: {}
+
+  services:
+    {{ traefik_http_service_name }}-service:
+      loadBalancer:
+        servers:
+          - url: {{ traefik_http_service_url }}
+
