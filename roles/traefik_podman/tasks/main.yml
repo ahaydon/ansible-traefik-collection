@@ -18,6 +18,7 @@
     owner: "{{ traefik_podman_user }}"
     group: "{{ traefik_podman_group }}"
     mode: "0660"
+  become: yes
 
 - name: Create traefik container
   ansible.builtin.include_role:
