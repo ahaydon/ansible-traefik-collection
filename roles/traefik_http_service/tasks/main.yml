@@ -11,7 +11,7 @@
 - name: Create traefik config file for {{ traefik_http_service_name }}
   ansible.builtin.template:
     src: http-service.yaml.j2
-    dest: "/home/traefik/config/conf.d/{{ traefik_http_service_name }}.yaml"
+    dest: "{{ (traefik_http_service_config_dir, traefik_http_service_name) | path_join }}.yaml"
     owner: "{{ traefik_http_service_owner }}"
     group: "{{ traefik_http_service_group }}"
     mode: "0640"
